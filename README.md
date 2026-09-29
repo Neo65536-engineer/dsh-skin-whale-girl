@@ -79,7 +79,7 @@ dsh plugin --profile desktop add ./dsh-skin-whale-girl
 （立绘位置、衬底范围、画框贴合度都会差一截）。两个包**刻意互不写入依赖**，
 就是为了让"引擎缺席"成为可用的降级态，而不是崩溃。
 
-引擎源码**同仓提供**在 [`engine/`](engine/)（它是个独立包，将来也可能单独开源）：
+引擎源码就在本仓的 [`engine/`](engine/)（它是个独立包，将来也可能单独开源）：
 
 ```sh
 git clone https://github.com/Neo65536-engineer/dsh-skin-whale-girl
@@ -87,6 +87,9 @@ dsh plugin --profile desktop add ./dsh-skin-whale-girl
 dsh plugin --profile desktop add ./dsh-skin-whale-girl/engine
 # 然后把 dsh-safe-area 也加进 dsh.profile.bundles，重启
 ```
+
+> 注意：`engine/` **不在 npm 包里**（这是有意的，它自己要单独发布）。
+> 所以上面的 `github:` 简写只能装皮肤那一个 —— 要装引擎必须 `git clone`。
 
 ## 控制台自检
 
