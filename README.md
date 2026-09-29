@@ -12,12 +12,41 @@
 
 | | |
 | --- | --- |
+| 安装 | **一条命令**（装完重启一次），见下 |
 | 实测环境 | DSH Desktop **2.0.15**（Windows / x64） |
 | 运行依赖 | **零** —— 无 peerDependencies、无 install 钩子、无原生模块、无构建步骤 |
 | 素材体积 | **1.01 MB / 8 个文件** |
 | 代码许可 | MIT（**素材另附条款，见下**） |
 
 ---
+
+## 安装
+
+```sh
+dsh plugin --profile desktop add github:Neo65536-engineer/dsh-skin-whale-girl
+```
+
+**就这一条。** `dsh plugin` 是转发给 pnpm 的；**注册到 `dsh.profile.bundles` 由 DSH 自动完成**
+（包里声明了 `dsh.bundle.patch`，安装后 DSH 会自己把它写进 bundles）——
+**不需要手改任何 JSON**。
+
+> **装完要重启一次 DSH Desktop。** 宿主侧（素材路由 / 自检报告通道）只在启动时加载一次。
+> 之后如果只改了 `lib/client.js`（浏览器侧），**刷新页面（`Ctrl+R`）就生效**，不用重启。
+
+本地开发就按路径装：
+
+```sh
+git clone https://github.com/Neo65536-engineer/dsh-skin-whale-girl
+dsh plugin --profile desktop add ./dsh-skin-whale-girl
+```
+
+卸载：
+
+```sh
+dsh plugin --profile desktop remove dsh-skin-whale-girl
+```
+
+（bundles 里那一行也会随之自动移除。）
 
 ## 特性
 
@@ -39,57 +68,15 @@
   引擎另外做"控件中心点命中测试"断言。
 - **可完整卸载**：改动都记在还原账本里，卸载后官方样式逐元素还原。
 
-## 安装
+## 内置的安全区引擎
 
-`dsh plugin` 是直接转发给 **pnpm** 的，所以第 ① 步接受任何 pnpm 能懂的来源（registry / git / 本地路径）。
-但**只做第 ① 步会"装了像没装"** —— 还必须把它写进 profile 的 `dsh.profile.bundles`，插件才会真的被加载。
+皮肤不是靠猜 DOM 来避让的 —— 包里内置了一个**运行时安全区引擎**：
+它测量官方 UI 的保护区（标题栏 / 会话头 / 侧栏 / 右栏 / 输入区 / 正文列）、
+把这些几何发布成 CSS 变量与状态属性、在顶部带铺一层可读衬底、
+并提供越界自检与可视化。
 
-```sh
-# ① 装进 profile（= 在 profile 目录里跑 pnpm add）
-dsh plugin --profile desktop add github:Neo65536-engineer/dsh-skin-whale-girl
-
-# 本地开发就按路径装
-git clone https://github.com/Neo65536-engineer/dsh-skin-whale-girl
-dsh plugin --profile desktop add ./dsh-skin-whale-girl
-```
-
-```jsonc
-// ② 编辑 <DSH_HOME>/profiles/desktop/package.json，把包名加进 bundles
-{
-  "dependencies": { "dsh-skin-whale-girl": "github:Neo65536-engineer/dsh-skin-whale-girl" },
-  "dsh": { "profile": { "bundles": [
-    "@deepseek-ai/dsh-base",
-    "@deepseek-ai/dsh-web-app",
-    "dsh-skin-whale-girl"        // ← 这一行最容易漏
-  ] } }
-}
-```
-
-> **装完要重启一次 DSH Desktop。** 宿主侧（素材路由）只在启动时加载一次。
-> 之后如果只改了 `lib/client.js`（浏览器侧），**刷新页面（`Ctrl+R`）就生效**，不用重启。
-
-卸载：`dsh plugin --profile desktop remove dsh-skin-whale-girl`，并删掉 bundles 里那一行。
-
-### 配套引擎 `dsh-safe-area`（可选，但强烈建议）
-
-皮肤消费的是引擎发布的一套**运行时契约**（CSS 变量 + 状态属性）：
-每个保护区的真实矩形、正文列宽、输入框卡片四边、可用美术带……
-
-**不装引擎也能显示** —— 皮肤所有变量都有兜底值，只是几何会退回保守估计
-（立绘位置、衬底范围、画框贴合度都会差一截）。两个包**刻意互不写入依赖**，
-就是为了让"引擎缺席"成为可用的降级态，而不是崩溃。
-
-引擎源码就在本仓的 [`engine/`](engine/)（它是个独立包，将来也可能单独开源）：
-
-```sh
-git clone https://github.com/Neo65536-engineer/dsh-skin-whale-girl
-dsh plugin --profile desktop add ./dsh-skin-whale-girl
-dsh plugin --profile desktop add ./dsh-skin-whale-girl/engine
-# 然后把 dsh-safe-area 也加进 dsh.profile.bundles，重启
-```
-
-> 注意：`engine/` **不在 npm 包里**（这是有意的，它自己要单独发布）。
-> 所以上面的 `github:` 简写只能装皮肤那一个 —— 要装引擎必须 `git clone`。
+为什么是"内置"而不是一个单独要装的包：**分成两个包时，用户得先 clone 再从子目录装第二个**
+—— 那就不叫即装即用了。它自身零依赖，卸载时和皮肤各自还原。
 
 ## 控制台自检
 
