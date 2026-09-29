@@ -1,0 +1,21 @@
+# 依赖与构建产物
+node_modules/
+pnpm-lock.yaml
+
+# 构建期输入（GPT 出的原图，不进仓）
+build-src/
+
+# 构建期预览（叠背景的观感图，不进仓）
+build/preview/
+__pycache__/
+*.pyc
+
+# 开发期诊断产物
+run/
+*.log
+
+# 编辑器 / 系统
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

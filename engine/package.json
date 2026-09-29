@@ -1,0 +1,38 @@
+{
+  "name": "dsh-safe-area",
+  "version": "0.2.0",
+  "description": "安全区引擎：运行时测量 DSH 的 UI 保护区，发布避让契约（CSS 变量 + 状态属性）、给原生控件铺可读衬底、提供越界自检与可视化。零素材、零依赖，不含任何美术。",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "dsh-desktop",
+    "deepseek-harness",
+    "safe-area",
+    "layout",
+    "css-variables",
+    "zero-dependency"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [],
+      "platform": "web"
+    }
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ]
+}

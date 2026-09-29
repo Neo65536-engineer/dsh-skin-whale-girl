@@ -1,0 +1,49 @@
+{
+  "name": "dsh-skin-whale-girl",
+  "version": "0.2.0",
+  "description": "鲸鱼娘 · 深海皮肤：自带整套素材（昼夜背景 / 立绘 / 半身像 / Q 版三表情 / 花边），文字永远有底、按钮永远点得到。",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "dsh-desktop",
+    "deepseek-harness",
+    "skin",
+    "theme",
+    "anime",
+    "whale-girl"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Neo65536-engineer/dsh-skin-whale-girl.git"
+  },
+  "homepage": "https://github.com/Neo65536-engineer/dsh-skin-whale-girl#readme",
+  "bugs": {
+    "url": "https://github.com/Neo65536-engineer/dsh-skin-whale-girl/issues"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [],
+      "platform": "web"
+    }
+  },
+  "files": [
+    "lib",
+    "assets",
+    "build",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ]
+}

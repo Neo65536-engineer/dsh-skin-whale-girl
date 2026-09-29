@@ -1,0 +1,9 @@
+# Store and check out everything as LF, so Windows checkouts do not
+# produce whole-file diffs (and so the JS bundles stay byte-stable).
+* text=auto eol=lf
+
+# Binaries — let GitHub treat them as such (diff / preview / stats)
+*.webp binary
+*.png  binary
+*.jpg  binary
+*.ico  binary
