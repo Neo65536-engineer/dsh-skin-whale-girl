@@ -90,7 +90,7 @@ dshSkinWhaleGirl.backdrop          // 'auto' | 'night' | 'day'
 dshSkinWhaleGirl.setBackdrop('day')
 ```
 
-## 已知限制（诚实说）
+## 已知限制
 
 - **只在 DSH Desktop 2.0.15 上实测过。** 官方 class 名带哈希前缀、DOM 结构也可能变，
   皮肤里有一部分钩子是 `[class*=...]` 片段和 `data-*` 属性 ——
